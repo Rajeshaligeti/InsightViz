@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>InsightViz</title>
+    <link rel="stylesheet" href="visualization\styles.css">
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(145deg, #1e293b, #0f172a); /* Deep modern gradient */
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        /* Container Styling (Glassmorphism) */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.1); /* Transparent glass effect */
+            backdrop-filter: blur(10px); /* Blur for glassmorphism */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(3, 3, 3, 0.96); /* Subtle glow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 50px rgba(16, 15, 15, 0.98);
+        }
+            
+        h1 {
+            text-align: center;
+            font-size: 38px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00d4ff, #00ff85);
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        h2 {
+            font-size: 24px;
+            color:rgb(240, 235, 235);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .generated-plot-heading {
+            text-transform: uppercase;
+            color:rgb(11, 11, 12); 
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+            font-weight: bold; /* Make it stand out */
+        }
+        
+        
+        form {
+            margin-bottom: 25px;
+        }
+        
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 20px;
+            font-family: sans-serif;
+            color:rgb(112, 250, 250);
+            font-weight: 500;
+        }
+        
+        /* Form Elements Styling */
+        form input, form select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            background: rgb(255, 255, 255);
+            color:rgb(13, 13, 13);
+            outline: none;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        
+        /* Button Styling */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #ffffff;
+            background: linear-gradient(90deg, #00d4ff, #00ff85); /* Vibrant gradient */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgb(255, 255, 255);
+        }
+
+        .btn:hover {
+            background: linear-gradient(90deg, #00ff85, #00d4ff); /* Reverse gradient */
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Plot Card Styling */
+    .plot-card {
+        background: rgba(255, 255, 255, 0.99);
+        backdrop-filter: blur(10px);
+        border-radius: 25px;
+        padding: 25px;
+        border: 1px solid rgba(246, 244, 244, 0.21);
+        box-shadow: 0 6px 20px rgb(177, 219, 247);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .plot-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .plot-image {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+        
+        .btn-download {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 16px;
+            background: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            text-align: center;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-download:hover {
+            background: #218838;
+        }
+        
+        .summary-section {
+            margin-top: 30px;
+            background:rgba(255, 255, 255, 0.1)
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .summary-section h3 {
+            margin-bottom: 10px;
+            color:rgb(255, 255, 255);
+        }
+        
+        .summary-section pre {
+            background:rgb(255, 255, 255);
+            font-family: 'Arial', Courier, monospace;
+            color:rgb(253, 254, 255);
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 15px;
+            color:rgb(99, 94, 94);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            form input, form select, form button {
+                padding: 10px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+            }
+        }
+        
+    </style>
+    
+      
+</head>
+<body>
+    <div class="container">
+        <h1>InsightViz</h1>
+        <form method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+                {% if columns %}
+                    <label for="x_axis">X-axis:</label>
+                    <select name="x_axis" required>
+                        {% for column in columns %}
+                            <option value="{{ column }}">{{ column }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="y_axis">Y-axis:</label>
+                    <select name="y_axis" required>
+                        {% for column in columns %}
+                            <option value="{{ column }}">{{ column }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+
+                <label for="plot_type">Plot Type:</label>
+                <select name="plot_type">
+                    <option value="Line Plot">Line Plot</option>
+                    <option value="Bar Plot">Bar Plot</option>
+                    <option value="Scatter Plot">Scatter Plot</option>
+                    <option value="Histogram">Histogram</option>
+                    <option value="Box Plot">Box Plot</option>
+                    <option value="Area Plot">Area Plot</option>
+                    <option value="Pie Chart">Pie Chart</option>
+                    <option value="Heatmap">Heatmap</option>
+                    <option value="Stacked Bar Plot">Stacked Bar Plot</option>
+                </select>
+            </div>
+            <button type="submit" class="btn">Generate Plot</button>
+        </form>
+
+        {% if plot %}
+            <div class="plot-card">
+                <h2 class="generated-plot-heading">Generated Plot  📈</h2>
+                <img src="data:image/png;base64,{{ plot }}" alt="Plot">
+                <a href="data:image/png;base64,{{ plot }}" download="plot.png" class="btn">Download Plot</a>
+            </div>
+        {% endif %}
+
+        {% if summary %}
+            <div class="summary-section">
+                <h2>Data Summary 📊</h2>
+                <h3>Column Statistics</h3>
+                <pre>{{ summary.column_summary|safe }}</pre>
+                <h3>Null Counts</h3>
+                <pre>{{ summary.null_counts|safe }}</pre>
+                <h3>Unique Value Counts</h3>
+                <pre>{{ summary.unique_counts|safe }}</pre>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+  
