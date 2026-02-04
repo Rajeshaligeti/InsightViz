@@ -1,0 +1,164 @@
+<style>
+    /* General Body Styling */
+    body {
+        font-family: 'Poppins', Arial, sans-serif;
+        background: linear-gradient(145deg, #1e293b, #0f172a); /* Deep modern gradient */
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    /* Container Styling (Glassmorphism) */
+    .container {
+        width: 90%;
+        max-width: 900px;
+        background: rgba(255, 255, 255, 0.1); /* Transparent glass effect */
+        backdrop-filter: blur(10px); /* Blur for glassmorphism */
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* Subtle glow */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Header Styling */
+    h1 {
+        text-align: center;
+        font-size: 38px;
+        font-weight: 700;
+        background: linear-gradient(90deg, #00d4ff, #00ff85);
+        -webkit-background-clip: text;
+        color: transparent;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+    }
+
+    /* Form Group Styling */
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    /* Label Styling */
+    form label {
+        display: block;
+        margin: 10px 0 5px;
+        color: #cbd5e1;
+        font-weight: 500;
+    }
+
+    /* Form Elements Styling */
+    form input, form select {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+        background: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        outline: none;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 10px rgba(6, 5, 5, 0.87);
+    }
+
+    form input:focus, form select:focus {
+        background-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Button Styling */
+    .btn {b 
+        display: inline-block;
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #ffffff;
+        background: linear-gradient(90deg, #00d4ff, #00ff85); /* Vibrant gradient */
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:hover {
+        background: linear-gradient(90deg, #00ff85, #00d4ff); /* Reverse gradient */
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:active {
+        transform: scale(0.98);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Plot Card Styling */
+    .plot-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border-radius: 15px;
+        padding: 20px;
+        margin-top: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .plot-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .plot-image {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Data Summary Styling */
+    .summary-section {
+        margin-top: 30px;
+    }
+
+    pre {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-family: 'Courier New', Courier, monospace;
+        color: #cbd5e1;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+
+        form input, form select, form button {
+            padding: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+        }
+    }
+</style>
